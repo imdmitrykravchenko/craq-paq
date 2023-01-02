@@ -1,6 +1,6 @@
 {
   "name": "craq-paq",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -10,13 +10,15 @@
   },
   "author": "Dmitry Kravchenko",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "@types/object-assign-deep": "^0.4.0",
+    "commander": "^9.4.1",
     "css-loader": "^6.7.3",
     "dotenv": "^16.0.3",
     "file-loader": "^6.2.0",
     "mini-css-extract-plugin": "^2.7.2",
     "nodemon-webpack-plugin": "^4.8.1",
+    "object-assign-deep": "^0.4.0",
     "postcss": "^8.4.20",
     "postcss-loader": "^7.0.2",
     "postcss-preset-env": "^7.8.3",
@@ -32,10 +34,6 @@
     "webpack-dev-server": "^4.11.1",
     "webpack-node-externals": "^3.0.0",
     "webpack-stats-plugin": "^1.1.1"
-  },
-  "dependencies": {
-    "commander": "^9.4.1",
-    "object-assign-deep": "^0.4.0"
   },
   "bin": {
     "craq": "dist/index.js"
