@@ -31,6 +31,7 @@ export default ({
     target: "node",
     output: {
       publicPath: "",
+      assetModuleFilename: "[path][name][ext][query]",
       path: path.resolve(cwd, output.path),
       filename: distFilename,
     },

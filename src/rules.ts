@@ -5,11 +5,9 @@ export default (
   cssLoader = undefined
 ): WebpackOptionsNormalized["module"]["rules"] => [
   {
-    test: /\.(png|jpe?g|gif)$/i,
-    loader: "file-loader",
-    options: {
-      name: "[path][name].[ext]",
-    },
+    test: /\.(png|jpe?g|gif|woff2?|eot|ttf|svg)$/i,
+    type: "asset/resource",
+    generator: { emit: !server },
   },
   {
     test: /\.css$/,

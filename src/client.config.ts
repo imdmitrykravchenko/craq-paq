@@ -70,7 +70,8 @@ export default ({
     },
     stats: silent ? "errors-only" : "normal",
     output: {
-      publicPath: `/${output.assets}`,
+      publicPath: `/${output.assets}/`,
+      assetModuleFilename: "[path][name][ext][query]",
       path: path.resolve(cwd, output.path, output.assets),
       filename: `${filename}.js`,
     },
