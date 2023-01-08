@@ -17,9 +17,9 @@ const getRunnerWith =
     new Promise<void>((resolve, reject) => {
       const config = getConfig({ ...options, mode: "development" });
       const { devServer } = config;
-      const compiler = webpack(config, (err, stats) => {
-        if (err || stats.hasErrors()) {
-          reject(err || stats);
+      const compiler = webpack(config, (err) => {
+        if (err) {
+          reject(err);
         }
 
         if (devServer) {
