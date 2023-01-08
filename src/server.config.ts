@@ -29,7 +29,7 @@ export default ({
     },
     target: "node",
     output: {
-      publicPath: "",
+      publicPath: `/${output.assets}/`,
       assetModuleFilename: "[path][name][ext][query]",
       path: path.resolve(cwd, output.path),
       filename: distFilename,
