@@ -13,6 +13,7 @@ export default ({
   src: { client },
   silent,
   output,
+  env,
 }: CraqPaqOptions): Configuration => {
   const filename = `[name]${mode === "production" ? ".[contenthash]" : ""}`;
 
@@ -26,11 +27,20 @@ export default ({
       rules: rules(false, MiniCssExtractPlugin.loader),
     },
     plugins: [
-      new webpack.DefinePlugin({
-        CRAQ_CLIENT: JSON.stringify(true),
-        CRAQ_SERVER: JSON.stringify(false),
-        NODE_ENV: JSON.stringify(mode),
-      }),
+      new webpack.DefinePlugin(
+        Object.entries(env[mode] || {}).reduce(
+          (result, [key, value]) => {
+            result[key] = JSON.stringify(value);
+
+            return result;
+          },
+          {
+            CRAQ_CLIENT: JSON.stringify(true),
+            CRAQ_SERVER: JSON.stringify(false),
+            NODE_ENV: JSON.stringify(mode),
+          }
+        )
+      ),
       new MiniCssExtractPlugin({ filename: `${filename}.css` }),
       new StatsWriterPlugin({ filename: "stats.json" }),
     ],

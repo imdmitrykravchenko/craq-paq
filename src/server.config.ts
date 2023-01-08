@@ -13,6 +13,7 @@ export default ({
   src: { server },
   silent,
   output,
+  env,
 }: CraqPaqOptions): Configuration => {
   const distFilename = "server.js";
 
@@ -35,15 +36,24 @@ export default ({
       filename: distFilename,
     },
     plugins: [
-      new webpack.DefinePlugin({
-        CRAQ_CLIENT: JSON.stringify(false),
-        CRAQ_SERVER: JSON.stringify(true),
-        NODE_ENV: JSON.stringify(mode),
-        ASSETS_PATH: JSON.stringify(output.assets),
-        STATS_FILE_PATH: JSON.stringify(
-          path.resolve(cwd, output.path, output.assets, "stats.json")
-        ),
-      }),
+      new webpack.DefinePlugin(
+        Object.entries(env[mode] || {}).reduce(
+          (result, [key, value]) => {
+            result[key] = JSON.stringify(value);
+
+            return result;
+          },
+          {
+            CRAQ_CLIENT: JSON.stringify(false),
+            CRAQ_SERVER: JSON.stringify(true),
+            NODE_ENV: JSON.stringify(mode),
+            ASSETS_PATH: JSON.stringify(output.assets),
+            STATS_FILE_PATH: JSON.stringify(
+              path.resolve(cwd, output.path, output.assets, "stats.json")
+            ),
+          }
+        )
+      ),
       ...(mode === "development"
         ? [
             new NodemonPlugin({
