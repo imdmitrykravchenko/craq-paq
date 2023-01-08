@@ -87,15 +87,5 @@ export default ({
         },
       },
     },
-    ...(mode === "development" && {
-      devServer: {
-        port: 3000,
-        bonjour: false,
-        static: false,
-        devMiddleware: {
-          writeToDisk: (file) => file.endsWith("stats.json"),
-        },
-      },
-    }),
   };
 };

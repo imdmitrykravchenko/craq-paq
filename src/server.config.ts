@@ -18,12 +18,11 @@ export default ({
 
   return {
     mode,
-    watch: mode === "development",
     entry: { server: path.resolve(cwd, server) },
     module: {
       rules: rules(true),
     },
-    // stats: silent ? "errors-only" : "verbose",
+    stats: silent ? "errors-only" : "verbose",
     resolve: {
       symlinks: false,
       extensions: [".tsx", ".ts", ".js"],
