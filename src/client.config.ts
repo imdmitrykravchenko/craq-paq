@@ -28,7 +28,7 @@ export default ({
     },
     plugins: [
       new webpack.DefinePlugin(
-        Object.entries(env[mode] || {}).reduce(
+        Object.entries({ ...env[mode], ...env[`${mode}Client`] }).reduce(
           (result, [key, value]) => {
             result[key] = JSON.stringify(value);
 

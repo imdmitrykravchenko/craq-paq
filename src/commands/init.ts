@@ -17,7 +17,11 @@ const config = {
   silent: true,
   env: {
     development: {},
+    developmentClient: {},
+    developmentServer: {},
     production: {},
+    productionClient: {},
+    productionServer: {},
   },
 };
 
