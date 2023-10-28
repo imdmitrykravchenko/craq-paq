@@ -14,6 +14,7 @@ export default ({
   silent,
   output,
   env,
+  version,
 }: CraqPaqOptions): Configuration => {
   const filename = `[name]${mode === "production" ? ".[contenthash]" : ""}`;
 
@@ -38,6 +39,7 @@ export default ({
             CRAQ_CLIENT: JSON.stringify(true),
             CRAQ_SERVER: JSON.stringify(false),
             NODE_ENV: JSON.stringify(mode),
+            VERSION: JSON.stringify(version),
           }
         )
       ),

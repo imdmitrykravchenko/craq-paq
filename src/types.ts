@@ -1,4 +1,5 @@
 export type CraqPaqOptions = {
+  version: string;
   cwd: string;
   src: {
     client: string;

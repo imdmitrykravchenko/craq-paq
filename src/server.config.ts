@@ -14,6 +14,7 @@ export default ({
   silent,
   output,
   env,
+  version,
 }: CraqPaqOptions): Configuration => {
   const distFilename = "server.js";
 
@@ -47,6 +48,7 @@ export default ({
             CRAQ_CLIENT: JSON.stringify(false),
             CRAQ_SERVER: JSON.stringify(true),
             NODE_ENV: JSON.stringify(mode),
+            VERSION: JSON.stringify(version),
             ASSETS_PATH: JSON.stringify(output.assets),
             STATS_FILE_PATH: JSON.stringify(
               path.resolve(cwd, output.path, output.assets, "stats.json")
@@ -60,6 +62,11 @@ export default ({
               quiet: silent,
               script: path.resolve(cwd, output.path, distFilename),
               watch: [path.resolve(cwd, output.path, distFilename)],
+              env: {
+                NODE_ENV: mode,
+                ...env[mode],
+                ...env[`${mode}Server`],
+              },
             }),
           ]
         : []),

@@ -13,6 +13,14 @@ program
 const getConfig = (cwd: string) =>
   require(path.resolve(cwd, "craq.config.json"));
 
+const getVersion = (cwd: string) => {
+  try {
+    return require(path.resolve(cwd, "package.json")).version;
+  } catch (e) {
+    return "unknown";
+  }
+};
+
 program.command("init").action(async () => {
   await init();
 });
@@ -23,7 +31,7 @@ program
   .action(() => {
     const cwd = process.cwd();
 
-    return serve({ ...getConfig(cwd), cwd });
+    return serve({ ...getConfig(cwd), version: getVersion(cwd), cwd });
   });
 
 program
@@ -32,7 +40,7 @@ program
   .action(() => {
     const cwd = process.cwd();
 
-    return build({ ...getConfig(cwd), cwd });
+    return build({ ...getConfig(cwd), version: getVersion(cwd), cwd });
   });
 
 program.parse();
