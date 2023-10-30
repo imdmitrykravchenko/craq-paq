@@ -37,10 +37,15 @@ program
 program
   .command("build")
   .description("Production build")
-  .action(() => {
+  .action(async () => {
     const cwd = process.cwd();
 
-    return build({ ...getConfig(cwd), version: getVersion(cwd), cwd });
+    try {
+      await build({ ...getConfig(cwd), version: getVersion(cwd), cwd });
+    } catch (e) {
+      console.error(e);
+      process.exit(1);
+    }
   });
 
 program.parse();

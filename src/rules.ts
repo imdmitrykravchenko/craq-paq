@@ -31,10 +31,10 @@ export default (
     test: /\.(ts|js)x?$/,
     exclude: /node_modules/,
     use: {
-      loader: "ts-loader",
+      loader: "babel-loader",
       options: {
-        compilerOptions: { noEmit: false },
-        allowTsInNodeModules: true,
+        presets: [["@babel/preset-env"], ["@babel/preset-typescript"]],
+        plugins: ["@babel/plugin-transform-runtime"],
       },
     },
   },
