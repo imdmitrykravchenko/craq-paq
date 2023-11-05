@@ -1,8 +1,8 @@
 import { WebpackOptionsNormalized } from "webpack";
 
 export default (
-  server,
-  cssLoader = undefined
+  server: boolean,
+  cssLoader = undefined,
 ): WebpackOptionsNormalized["module"]["rules"] => [
   {
     test: /\.(png|jpe?g|gif|woff2?|eot|ttf|svg)$/i,

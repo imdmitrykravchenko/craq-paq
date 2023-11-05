@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import path from "path";
+import { cosmiconfigSync } from "cosmiconfig";
 import { createCommand } from "commander";
 import init from "./commands/init";
 import serve from "./commands/serve";
@@ -10,8 +11,15 @@ program
   .name("craq-paq")
   .description("Webpack based cli utility for building craq application");
 
-const getConfig = (cwd: string) =>
-  require(path.resolve(cwd, "craq.config.json"));
+const getConfig = (cwd: string) => {
+  const result = cosmiconfigSync("craq").search(cwd);
+
+  if (!result) {
+    throw new Error("Config file not found");
+  }
+
+  return result.config;
+};
 
 const getVersion = (cwd: string) => {
   try {

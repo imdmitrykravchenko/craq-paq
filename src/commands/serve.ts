@@ -1,5 +1,3 @@
-import path from "path";
-import dotenv from "dotenv";
 import webpack from "webpack";
 import redbird from "redbird";
 import express from "express";
@@ -10,8 +8,6 @@ import getServerConfig from "../server.config";
 import { CraqPaqOptions } from "../types";
 import normalizeOptions from "../normalizeOptions";
 
-dotenv.config({ path: path.join(__dirname, ".env") });
-
 const runProxy = ({ serve, output }: CraqPaqOptions) => {
   const proxy = redbird({ port: serve.port, bunyan: false });
   const url = `http://${serve.hostname}:${serve.port}`;
@@ -19,7 +15,7 @@ const runProxy = ({ serve, output }: CraqPaqOptions) => {
 
   proxy.register(
     `${url}/${output.assets}`,
-    `${localhost}:3000/${output.assets}`
+    `${localhost}:3000/${output.assets}`,
   );
   proxy.register(url, `${localhost}:3001/`);
 
@@ -43,7 +39,7 @@ const runDev = async (options: Partial<CraqPaqOptions>) => {
       wdm(compiler, {
         publicPath: compiler.options.output.publicPath,
         writeToDisk: (file) => file.endsWith("stats.json"),
-      })
+      }),
     );
     app.listen(3000);
   }
@@ -57,7 +53,7 @@ const runDev = async (options: Partial<CraqPaqOptions>) => {
           reject(err);
         } else {
           stats.compilation.errors.forEach((error) =>
-            console.error(error.message)
+            console.error(error.message),
           );
           resolve();
         }
